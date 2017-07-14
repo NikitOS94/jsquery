@@ -3,7 +3,7 @@
 MODULE_big = jsquery
 OBJS = jsonb_gin_ops.o jsquery_constr.o jsquery_extract.o \
 	jsquery_gram.o jsquery_io.o jsquery_op.o jsquery_support.o \
-	monq_gram.o monq_scan.o get_jsquery.o create_mquery.o delete_mquery.o
+	monq_gram.o monq_scan.o monq_get_jsquery.o monq_create_query.o monq_delete_query.o
 
 EXTENSION = jsquery
 DATA = jsquery--1.0.sql

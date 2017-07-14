@@ -543,4 +543,9 @@ select v from test_jsquery where v @@ 'array && [2,3]' order by v;
 select v from test_jsquery where v @@ 'array @> [2,3]' order by v;
 select v from test_jsquery where v @@ 'array = [2,3]' order by v;
 
+---MongoDB query translator tests
+select '{"a": {"b": 1}}'::jsonb @@ parse_mquery('{ "a.b" : 1 }');
+select  parse_mquery('{ is : { $lt: 1 } }')::jsquery;
+select v from test_jsquery where v @@ parse_mquery('{array : {$all: [2,3]} }') order by v;
+
 RESET enable_seqscan;

@@ -2913,4 +2913,25 @@ select v from test_jsquery where v @@ 'array = [2,3]' order by v;
  {"array": [2, 3]}
 (1 row)
 
+---MongoDB query translator tests
+select '{"a": {"b": 1}}'::jsonb @@ parse_mquery('{ "a.b" : 1 }');
+ ?column? 
+----------
+ t
+(1 row)
+
+select  parse_mquery('{ is : { $lt: 1 } }')::jsquery;
+ parse_mquery 
+--------------
+ "is" < 1
+(1 row)
+
+select v from test_jsquery where v @@ parse_mquery('{array : {$all: [2,3]} }') order by v;
+          v           
+----------------------
+ {"array": [2, 3]}
+ {"array": [1, 2, 3]}
+ {"array": [2, 3, 4]}
+(3 rows)
+
 RESET enable_seqscan;
